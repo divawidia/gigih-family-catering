@@ -4,7 +4,13 @@ module Api
             def index
                 orders = Order.all
 
-                render json: OrderSerializer.new(orders).serialized_json
+                render json: OrderSerializer.new(orders, options).serialized_json
+            end
+
+            def show
+                order = Order.find_by(id: params[:id])
+
+                render json: OrderSerializer.new(order, options).serialized_json
             end
 
             def create
@@ -21,7 +27,17 @@ module Api
                     total_order_price = order_detail.sum('subtotal')
                     order.update(total: total_order_price)
 
-                    render json: OrderSerializer.new(order).serialized_json
+                    render json: OrderSerializer.new(order, options).serialized_json
+                else
+                    render json: { error: order.errors.messages }, status: 422
+                end
+            end
+
+            def update
+                order = Order.find_by(id: params[:id])
+
+                if order.update(status: params[:status])
+                    render json: OrderSerializer.new(order, options).serialized_json
                 else
                     render json: { error: order.errors.messages }, status: 422
                 end
@@ -33,6 +49,9 @@ module Api
                 params.require(:order).permit(:customer_id, :order_date)
             end
 
+            def options
+                @options ||= { include: %i[order_details] }
+            end
         end
     end
 end
