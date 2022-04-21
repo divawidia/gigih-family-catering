@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resources :categories
       resources :menus_categories
       resources :customers
+      resources :orders
     end
   end
 
