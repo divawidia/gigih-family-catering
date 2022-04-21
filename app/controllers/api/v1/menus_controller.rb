@@ -17,6 +17,12 @@ module Api
                 menu = Menu.new(menu_params)
 
                 if menu.save
+                    params[:menus_categories].each do |menu_category|
+                        category = Category.find_by(id: menu_category[:category_id])
+                        menu_categories = MenusCategory.new(menu_id: menu.id, category_id: category.id)
+                        menu_categories.save
+                    end
+                    
                     render json: MenuSerializer.new(menu, options).serialized_json
                 else
                     render json: { error: menu.errors.messages }, status: 422
@@ -26,7 +32,27 @@ module Api
             def update
                 menu = Menu.find_by(id: params[:id])
 
-                if menu.update(menu_params)
+                if menu.update(menu_params) && params[:menus_categories]
+                    MenusCategory.where(menu_id: menu.id).delete_all
+
+                    params[:menus_categories].each do |menu_category|
+                        category = Category.find_by(id: menu_category[:category_id])
+                        menu_categories = MenusCategory.new(menu_id: menu.id, category_id: category.id)
+                        menu_categories.save
+                    end
+
+                    render json: MenuSerializer.new(menu, options).serialized_json
+                elsif menu.update(menu_params)
+                    render json: MenuSerializer.new(menu, options).serialized_json
+                elsif params[:menus_categories]
+                    MenusCategory.where(menu_id: menu.id).delete_all
+
+                    params[:menus_categories].each do |menu_category|
+                        category = Category.find_by(id: menu_category[:category_id])
+                        menu_categories = MenusCategory.new(menu_id: menu.id, category_id: category.id)
+                        menu_categories.save
+                    end
+                    
                     render json: MenuSerializer.new(menu, options).serialized_json
                 else
                     render json: { error: menu.errors.messages }, status: 422
@@ -37,6 +63,8 @@ module Api
                 menu = Menu.find_by(id: params[:id])
 
                 if menu.destroy
+                    MenusCategory.where(menu_id: menu.id).delete_all
+
                     head :no_content
                 else
                     render json: { errors: menu.errors.messages }, status: 422
