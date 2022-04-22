@@ -66,6 +66,7 @@ group :development do
   gem "rspec-rails"
   gem "factory_bot_rails"
   gem "faker"
+  gem 'rails-controller-testing'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -79,4 +80,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+  gem "faker"
+  gem 'rails-controller-testing'
 end
