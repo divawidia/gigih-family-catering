@@ -18,8 +18,8 @@ RSpec.describe Category, type: :model do
   end
 
   it 'is invalid with a duplicate name' do
-    category1 = FactoryBot.create(:category, category_name: "Beverage")
-    category2 = FactoryBot.build(:category, category_name: "Beverage")
+    category1 = FactoryBot.create(:category, category_name: "Meat")
+    category2 = FactoryBot.build(:category, category_name: "Meat")
     category2.valid?
     expect(category2.errors[:category_name]).to include("has already been taken")
   end
