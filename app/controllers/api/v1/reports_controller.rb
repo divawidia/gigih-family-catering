@@ -27,6 +27,8 @@ module Api
 
                 render json: reports
             end
+
+            
         end
     end
 end
