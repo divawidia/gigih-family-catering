@@ -1,10 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe MenusCategory, type: :model do
-  it 'has a valid category details' do
-    expect(FactoryBot.build(:menus_category)).to be_valid
-  end
-
   it 'is invalid without menu id' do
     menu_category = FactoryBot.build(:menus_category, menu_id: nil)
     menu_category.valid?
