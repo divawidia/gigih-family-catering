@@ -41,6 +41,8 @@ gem 'fast_jsonapi'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data"
 
+gem 'ffi'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
@@ -60,7 +62,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  
+
   gem "rspec-rails"
   gem "factory_bot_rails"
   gem "faker"
