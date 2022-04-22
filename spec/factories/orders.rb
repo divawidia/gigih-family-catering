@@ -6,7 +6,7 @@ FactoryBot.define do
         order_date {"2022-04-22"}
     end
 
-    factory :invalid_food, parent: :food do
+    factory :invalid_order, parent: :order do
         customer_id { nil }
         total { nil }
         status { "delete" }
