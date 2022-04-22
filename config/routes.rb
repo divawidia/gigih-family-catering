@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       resources :menus_categories
       resources :customers
       resources :orders
+      post '/reports/daily', to: 'reports#daily_report'
+      post '/reports/customer', to: 'reports#customer_report'
     end
   end
 
