@@ -7,12 +7,6 @@ RSpec.describe Order, type: :model do
     expect(order.errors[:customer_id]).to include("can't be blank")
   end
 
-  it 'is invalid without total to be paid' do
-    order = FactoryBot.build(:order, total: nil)
-    order.valid?
-    expect(order.errors[:total]).to include("can't be blank")
-  end
-
   it 'is invalid without a status' do
     order = FactoryBot.build(:order, status: nil)
     order.valid?
