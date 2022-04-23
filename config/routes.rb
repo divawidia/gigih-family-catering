@@ -9,11 +9,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :menus
       resources :categories
-      resources :menus_categories
       resources :customers
-      resources :orders
-      post '/reports/daily', to: 'reports#daily_report'
-      post '/reports/customer', to: 'reports#customer_report'
+      resources :orders, only: %i[index show create update]
     end
   end
 

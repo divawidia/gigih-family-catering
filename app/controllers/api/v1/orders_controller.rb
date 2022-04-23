@@ -58,7 +58,7 @@ module Api
             end
 
             def filtering_params(params)
-                params.slice(:status, :customer_id, :order_date, :total_min, :total_max, :order_date_min, :order_date_max)
+                params.slice(:status, :customer_id, :order_date, :total, :total_min, :total_max, :order_date_min, :order_date_max)
             end
         end
     end
